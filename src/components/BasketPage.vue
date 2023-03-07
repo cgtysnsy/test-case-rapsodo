@@ -4,7 +4,11 @@
       <v-col cols="5">
         <v-card-title>Products</v-card-title>
       </v-col>
-      <v-col cols="4"> &lt; Continue Shopping </v-col>
+      <v-col cols="4">
+        <router-link to="/" class="back-router">
+          &lt; Continue Shopping
+        </router-link>
+      </v-col>
     </v-row>
     <v-col>
       <v-row no-gutters>
@@ -42,6 +46,10 @@
 <script></script>
 
 <style scoped>
+.back-router {
+  text-decoration: none;
+  color: rgb(0, 140, 255);
+}
 .price {
   color: green;
 }
