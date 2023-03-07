@@ -1,7 +1,7 @@
 <template>
   <v-col
     v-for="product in products"
-    :key="product.name"
+    :key="product.id"
     cols="12"
     sm="6"
     md="4"
@@ -27,14 +27,25 @@
       </v-card-text>
 
       <v-card-actions v-if="!product.showInput">
-        <v-btn>Add to Cart</v-btn>
+        <v-btn @click="addToCart(product)" class="btn-add">Add to Cart</v-btn>
       </v-card-actions>
       <v-card-actions v-else>
         <v-row>
           <v-col cols="12" class="d-flex justify-center align-center">
-            <button>-</button>
+            <button @click="decreaseQuantity(product)" class="btn-product">
+              -
+            </button>
 
-            <button class="btn-product">+</button>
+            <input
+              type="number"
+              v-model="product.quantity"
+              @change="updateQuantity(product, $event.target.value)"
+              class="d-block input-product"
+            />
+
+            <button @click="increaseQuantity(product)" class="btn-product">
+              +
+            </button>
           </v-col>
         </v-row></v-card-actions
       >
@@ -43,57 +54,29 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
 export default {
-  data() {
-    return {
-      products: [
-        {
-          amount: 125,
-          color: "Black",
-          name: "Product-1",
-          size: "XL",
-          stock: 2,
-        },
-        {
-          amount: 55,
-          color: "Green",
-          name: "Product-2",
-          size: "L",
-          stock: 4,
-        },
-        {
-          amount: 25,
-          color: "Red",
-          name: "Product-3",
-          size: "XXL",
-          stock: 0,
-        },
-        {
-          amount: 65,
-          color: "Yellow",
-          name: "Product-4",
-          size: "S",
-          stock: 8,
-        },
-        {
-          amount: 15,
-          color: "Gray",
-          name: "Product-5",
-          size: "M",
-          stock: 1,
-        },
-        {
-          amount: 5,
-          color: "Blue",
-          name: "Product-6",
-          size: "L",
-          stock: 0,
-        },
-      ],
-    };
+  computed: {
+    ...mapState(["products", "cartItems"]),
+  },
+  methods: {
+    ...mapActions([
+      "fetchProducts",
+      "addToCart",
+      "removeFromCart",
+      "increaseQuantity",
+      "decreaseQuantity",
+      "updateQuantity",
+    ]),
+    updateQuantity(item, quantity) {
+      this.$store.commit("updateQuantity", { item, quantity });
+    },
+  },
+  created() {
+    this.fetchProducts();
   },
 };
-//this data will be used for just for mock.
 </script>
 
 <style scoped>
@@ -115,8 +98,5 @@ export default {
   border: 1px solid lightgrey;
   text-align: center;
   width: 100px;
-}
-.card-image {
-  background-color: orange;
 }
 </style>
