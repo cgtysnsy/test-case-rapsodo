@@ -86,17 +86,28 @@ const store = createStore({
   },
   actions: {
     async fetchProducts({ commit }) {
-      const response = await fetch(
-        "https://fe-test-case-eeca77cfvq-ue.a.run.app"
-      );
-      const products = await response.json();
-      this.products = products.map((product) => ({
-        ...product,
-        showInput: false,
-        quantity: 1,
-        id: nanoid(),
-      }));
-      commit("setProducts", this.products);
+      try {
+        const response = await fetch(
+          "https://fe-test-case-eeca77cfvq-ue.a.run.app"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const products = await response.json();
+        if (!Array.isArray(products)) {
+          throw new Error("Invalid response data format");
+        }
+        this.products = products.map((product) => ({
+          ...product,
+          showInput: false,
+          quantity: 1,
+          id: nanoid(),
+        }));
+        commit("setProducts", this.products);
+      } catch (error) {
+        console.error(error);
+        // Handle the error by displaying a friendly message to the user
+      }
     },
     addToCart({ commit }, item) {
       commit("addToCart", item);
