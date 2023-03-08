@@ -79,12 +79,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import * as vuex from "vuex";
 
 export default {
   name: "BasketPage",
   computed: {
-    ...mapState(["cartItems"]),
+    ...vuex.mapState(["cartItems"]),
 
     cart() {
       return this.$store.state.cartItems;
@@ -99,7 +99,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([
+    ...vuex.mapMutations([
       "increaseQuantity",
       "decreaseQuantity",
       "removeFromCart",

@@ -10,16 +10,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import * as vuex from "vuex";
 // import { VIcon } from "../plugins/vuetify.js";
 
 export default {
-  // name: "BasketIcon",
-  // components: {
-  //   VIcon,
-  // },
   computed: {
-    ...mapState(["cartItems"]),
+    ...vuex.mapState(["cartItems"]),
     cartItemCount() {
       return this.cartItems.length;
     },

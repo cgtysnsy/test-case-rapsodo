@@ -54,14 +54,14 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import * as vuex from "vuex";
 
 export default {
   computed: {
-    ...mapState(["products", "cartItems"]),
+    ...vuex.mapState(["products", "cartItems"]),
   },
   methods: {
-    ...mapActions([
+    ...vuex.mapActions([
       "fetchProducts",
       "addToCart",
       "removeFromCart",
