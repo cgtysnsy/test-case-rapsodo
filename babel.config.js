@@ -1,5 +1,10 @@
 module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset'
-  ]
-}
+  //   presets: ["@babel/preset-env"],
+  // };
+
+  presets: [["@babel/preset-env", { targets: { node: "current" } }]],
+  plugins: [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+  ],
+};

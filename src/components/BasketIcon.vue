@@ -1,14 +1,24 @@
 <template>
-  <v-icon icon="mdi-cart" class="cart-icon" color="orange" value="2" />
+  <router-link to="/basketpage" class="route-link">
+    <v-icon
+      icon="mdi-cart"
+      class="cart-icon"
+      :value="cartItemCount"
+      color="orange"
+    />
+  </router-link>
 </template>
-<!-- With store this will be added :value="cartItemCount" -->
+
 <script>
-import { VIcon } from "../plugins/vuetify";
+import * as vuex from "vuex";
+// import { VIcon } from "../plugins/vuetify.js";
 
 export default {
-  name: "CartIcon",
-  components: {
-    VIcon,
+  computed: {
+    ...vuex.mapState(["cartItems"]),
+    cartItemCount() {
+      return this.cartItems.length;
+    },
   },
 };
 </script>

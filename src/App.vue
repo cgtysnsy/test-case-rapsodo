@@ -1,27 +1,28 @@
 <template>
   <v-container fluid class="app">
     <v-row no-gutters justify="end my-10">
-      <BasketIcon />
-      <h1>hellooo</h1>
+      <router-link to="/basketpage" class="route-link">
+        <BasketIcon />
+      </router-link>
     </v-row>
     <v-row no-gutter>
-      <ProductPage />
-      <BasketPage />
+      <router-link to="/" class="route-link"></router-link>
+      <router-view></router-view>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import ProductPage from "./components/ProductPage.vue";
+// import ProductPage from "./components/ProductPage.vue";
 import BasketIcon from "./components/BasketIcon.vue";
-import BasketPage from "./components/BasketPage.vue";
+// import BasketPage from "./components/BasketPage.vue";
 
 export default {
   name: "App",
   components: {
-    ProductPage,
+    // ProductPage,
     BasketIcon,
-    BasketPage,
+    // BasketPage,
   },
 };
 </script>
@@ -36,5 +37,8 @@ body {
 }
 .app {
   max-width: 1260px;
+}
+.route-link {
+  text-decoration: none;
 }
 </style>
