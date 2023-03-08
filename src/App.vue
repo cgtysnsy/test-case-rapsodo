@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="app">
+  <v-container class="app">
     <v-row no-gutters justify="end my-10">
       <router-link to="/basketpage" class="route-link">
         <BasketIcon />
@@ -37,6 +37,7 @@ body {
 }
 .app {
   max-width: 1260px;
+  min-width: 240px;
 }
 .route-link {
   text-decoration: none;

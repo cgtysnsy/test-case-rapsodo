@@ -2,7 +2,7 @@
   <v-container>
     <v-row no-gutters>
       <v-col cols="12" md="9">
-        <v-row no-gutters justify="space-between">
+        <v-row no-gutters justify="space-between" class="my-6">
           <v-col cols="5">
             <v-card-title>Products</v-card-title>
           </v-col>
@@ -13,7 +13,7 @@
           </v-col>
         </v-row>
 
-        <v-row no-gutters>
+        <v-row no-gutters class="m-4">
           <v-col cols="12" v-if="cart.length === 0">
             <p>Your basket is empty.</p>
           </v-col>
@@ -32,10 +32,10 @@
                   src="https://wiki.kerbalspaceprogram.com/images/c/ce/Image_needed.svg"
                   alt="240x240"
                   cover
-                  class="mx-auto"
+                  class="mx-auto product-image"
                 />
               </v-col>
-              <v-col cols="12" md="5" class="mt-10">
+              <v-col cols="12" md="5" class="mt-10 my-auto">
                 <h3>{{ basketItem.name }}</h3>
                 <p>Size: {{ basketItem.size }}</p>
                 <p>Color: {{ basketItem.color }}</p>
@@ -62,7 +62,7 @@
                 >
               </v-col>
             </v-row>
-            <v-divider />
+            <v-divider class="my-4" />
           </v-col>
         </v-row>
       </v-col>
@@ -127,5 +127,8 @@ export default {
 }
 .price {
   color: green;
+}
+.product-image {
+  background-color: orangered;
 }
 </style>
