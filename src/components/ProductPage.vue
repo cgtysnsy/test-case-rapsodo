@@ -9,7 +9,7 @@
   >
     <v-card class="mx-auto" max-width="240" :product="product">
       <v-img
-        class="align-end text-black"
+        class="align-end text-black product-image"
         width="240"
         height="240"
         src="https://wiki.kerbalspaceprogram.com/images/c/ce/Image_needed.svg"
@@ -98,5 +98,8 @@ export default {
   border: 1px solid lightgrey;
   text-align: center;
   width: 100px;
+}
+.product-image {
+  background-color: orangered;
 }
 </style>
