@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-container class="app">
+    <v-row no-gutters justify="end my-10">
+      <router-link to="/basketpage" class="route-link">
+        <BasketIcon />
+      </router-link>
+    </v-row>
+    <v-row no-gutter>
+      <router-link to="/" class="route-link"></router-link>
+      <router-view></router-view>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import ProductPage from "./components/ProductPage.vue";
+import BasketIcon from "./components/BasketIcon.vue";
+// import BasketPage from "./components/BasketPage.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    // ProductPage,
+    BasketIcon,
+    // BasketPage,
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.app {
+  max-width: 1260px;
+  min-width: 240px;
+}
+.route-link {
+  text-decoration: none;
 }
 </style>
