@@ -1,6 +1,6 @@
 <template>
   <v-container class="app">
-    <v-row no-gutters justify="end my-10">
+    <v-row no-gutters justify="end" class="my-10">
       <router-link to="/basketpage" class="route-link">
         <BasketIcon />
       </router-link>

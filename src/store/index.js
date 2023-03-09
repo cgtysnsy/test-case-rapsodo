@@ -5,10 +5,14 @@ const store = createStore({
   state: {
     products: [],
     cartItems: [],
+    isLoading: false,
   },
   mutations: {
     setProducts(state, products) {
       state.products = products;
+    },
+    setisLoading(state, isLoading) {
+      state.isLoading = isLoading;
     },
 
     //!!!For refractoring, try send index as a argument instead of defining index inside the functions.!!!
@@ -86,6 +90,7 @@ const store = createStore({
   },
   actions: {
     async fetchProducts({ commit }) {
+      commit("setisLoading", true); //set loading state to true
       try {
         const response = await fetch(
           "https://fe-test-case-eeca77cfvq-ue.a.run.app"
@@ -104,6 +109,7 @@ const store = createStore({
           id: nanoid(),
         }));
         commit("setProducts", this.products);
+        commit("setisLoading", false);
       } catch (error) {
         console.error(error);
         // Handle the error by displaying a friendly message to the user
