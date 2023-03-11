@@ -49,7 +49,7 @@
 
                 <input
                   type="number"
-                  v-model="product.quantity"
+                  :value="inputQuantity(product.id)"
                   @change="updateQuantity(product, $event.target.value)"
                   class="d-block input-product"
                 />
@@ -84,6 +84,14 @@ export default {
     ]),
     updateQuantity(item, quantity) {
       this.$store.commit("updateQuantity", { item, quantity });
+    },
+    inputQuantity(productId) {
+      console.log(this.cartItems, "inputQuantity-cartItems");
+      console.log(this.products, "inputQuantity-products");
+      console.log(productId, "inputQuantity-productId");
+      const productInputValue = this.cartItems.find((i) => i.id === productId);
+      console.log(productInputValue.quantity, "input");
+      return productInputValue.quantity;
     },
   },
   created() {
