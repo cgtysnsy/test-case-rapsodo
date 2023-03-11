@@ -21,7 +21,7 @@
           <v-col
             cols="12"
             v-else
-            v-for="basketItem in cartItems"
+            v-for="basketItem in cartItemsStorage"
             :key="basketItem.id"
           >
             <v-row no-gutters>
@@ -84,10 +84,10 @@ import * as vuex from "vuex";
 export default {
   name: "BasketPage",
   computed: {
-    ...vuex.mapState(["cartItems"]),
+    ...vuex.mapState(["cartItems", "cartItemsStorage"]),
 
     cart() {
-      return this.$store.state.cartItems;
+      return this.$store.state.cartItemsStorage;
     },
 
     total() {

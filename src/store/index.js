@@ -36,7 +36,6 @@ const store = createStore({
       const index = state.cartItemsStorage.findIndex(
         (i) => i.name === item.name
       );
-      console.log("index", index);
 
       if (index !== -1) {
         // if the item is already in the basket, increment the quantity
@@ -58,8 +57,8 @@ const store = createStore({
           quantity: item.quantity,
         });
       }
-      console.log("item", item);
-      item.showInput = true;
+
+      // item.showInput = true;
 
       updateLocalStorage("cartItems", state.cartItemsStorage);
     },
@@ -75,22 +74,38 @@ const store = createStore({
         return;
       }
       state.cartItemsStorage[index].quantity++;
+      console.log("state.cartItemStora", state.cartItemsStorage[0].quantity);
+      updateLocalStorage("cartItems", state.cartItemsStorage);
     },
     // decrease the quantity of an item in the basket
     decreaseQuantity(state, item) {
-      console.log(state.cartItemsStorage, "cartstorage");
-      const cartItem = state.cartItemsStorage.find((i) => i.name === item.name);
-
-      if (cartItem && cartItem.quantity > 1) {
+      // const cartItem = state.cartItemsStorage.find((i) => i.name === item.name);
+      const index = state.cartItemsStorage.findIndex(
+        (i) => i.name === item.name
+      );
+      if (
+        state.cartItemsStorage[index] &&
+        state.cartItemsStorage[index].quantity > 1
+      ) {
         // if the quantity is greater than 1, decrease the quantity
-        cartItem.quantity--;
+        state.cartItemsStorage[index].quantity--;
       } else {
         // if the quantity of the item is 1, remove it from the basket
         const index = state.cartItemsStorage.findIndex(
           (i) => i.name === item.name
         );
+
         state.cartItemsStorage.splice(index, 1);
+
+        const productIndex = state.products.findIndex((p) => p.id === item.id);
+        console.log("productIndex", productIndex);
+        let updatedProducts = [...this.state.products];
+        updatedProducts[productIndex].showInput = false;
+
+        updateLocalStorage("productsStorage", updatedProducts);
       }
+
+      updateLocalStorage("cartItems", state.cartItemsStorage);
     },
     removeFromCart(state, index) {
       state.cartItemsStorage.splice(index, 1);
@@ -166,25 +181,22 @@ const store = createStore({
     },
 
     addToCart({ commit }, item) {
-      // updateLocalStorage("productsStorage", this.products);
-      //   const productsStorage = JSON.parse(
-      //     localStorage.getItem("productsStorage")
-      //   );
-
-      //   commit("setProducts", productsStorage);
       const productToAdd = this.state.products.find((p) => p.id === item.id);
       const productIndex = this.state.products.findIndex(
         (p) => p.id === item.id
       );
-      productToAdd.showInput = true;
-      let updatedProducts = [...this.state.products];
-      updatedProducts[productIndex].showInput = true;
-      updateLocalStorage("productsStorage", updatedProducts);
-      const productsStorage = JSON.parse(
-        localStorage.getItem("productsStorage")
-      );
+      if (productToAdd.stock > 0) {
+        productToAdd.showInput = true;
+        let updatedProducts = [...this.state.products];
+        updatedProducts[productIndex].showInput = true;
+        updateLocalStorage("productsStorage", updatedProducts);
+        const productsStorage = JSON.parse(
+          localStorage.getItem("productsStorage")
+        );
 
-      commit("setProducts", productsStorage);
+        commit("setProducts", productsStorage);
+      }
+
       commit("addToCart", item);
     },
     initializeCartItemsFromLocalStorage({ commit }) {

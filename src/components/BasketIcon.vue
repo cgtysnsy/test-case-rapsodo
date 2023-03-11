@@ -15,9 +15,9 @@ import * as vuex from "vuex";
 
 export default {
   computed: {
-    ...vuex.mapState(["cartItems"]),
+    ...vuex.mapState(["cartItems", "cartItemsStorage"]),
     cartItemCount() {
-      return this.cartItems.length;
+      return this.cartItemsStorage.length;
     },
   },
 };
