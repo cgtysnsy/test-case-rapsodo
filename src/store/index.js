@@ -71,8 +71,8 @@ const store = createStore({
       state.cartItems.splice(index, 1);
     },
     updateQuantity(state, { item, quantity }) {
-      const product = state.products.find((p) => p.name === item.name);
-      const cartItem = state.cartItems.find((i) => i.name === item.name);
+      const product = state.products.find((p) => p.id === item.id);
+      const cartItem = state.cartItems.find((i) => i.id === item.id);
 
       if (!product || !cartItem) {
         return; // product or item not found, do nothing
