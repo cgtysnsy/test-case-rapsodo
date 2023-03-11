@@ -1,35 +1,51 @@
 import { createStore } from "vuex";
-import { nanoid } from "nanoid";
+// import { nanoid } from "nanoid";
+
+const updateLocalStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
 
 const store = createStore({
   state: {
     products: [],
     cartItems: [],
+    cartItemsStorage: [],
     isLoading: false,
+    isFetched: false,
   },
   mutations: {
     setProducts(state, products) {
       state.products = products;
     },
+    setCartItemsFromLocalStorage(state) {
+      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      state.cartItemsStorage = cartItems;
+    },
     setisLoading(state, isLoading) {
       state.isLoading = isLoading;
     },
-
+    setIsFetched(state, isFetched) {
+      state.isFetched = isFetched;
+    },
     //!!!For refractoring, try send index as a argument instead of defining index inside the functions.!!!
 
     // add a new item to the basket
     addToCart(state, item) {
       // check if the item is already in the basket
-      const index = state.cartItems.findIndex((i) => i.name === item.name);
+
+      const index = state.cartItemsStorage.findIndex(
+        (i) => i.name === item.name
+      );
+      console.log("index", index);
 
       if (index !== -1) {
         // if the item is already in the basket, increment the quantity
-        if (state.cartItems[index].quantity + 1 > item.stock) {
+        if (state.cartItemsStorage[index].quantity + 1 > item.stock) {
           // check if the item's quantity will exceed the stock number
           alert("Stock limit reached!");
           return;
         }
-        state.cartItems[index].quantity++;
+        state.cartItemsStorage[index].quantity++;
       } else {
         // if the item is not in the basket, add it with a quantity of 1
         if (item.quantity > item.stock) {
@@ -37,42 +53,51 @@ const store = createStore({
           alert("Stock limit reached!");
           return;
         }
-        state.cartItems.push({
+        state.cartItemsStorage.push({
           ...item,
           quantity: item.quantity,
         });
       }
+      console.log("item", item);
       item.showInput = true;
+
+      updateLocalStorage("cartItems", state.cartItemsStorage);
     },
+
     // increase the quantity of an item in the basket
     increaseQuantity(state, item) {
-      const index = state.cartItems.findIndex((i) => i.name === item.name);
-      if (state.cartItems[index].quantity + 1 > item.stock) {
+      const index = state.cartItemsStorage.findIndex(
+        (i) => i.name === item.name
+      );
+      if (state.cartItemsStorage[index].quantity + 1 > item.stock) {
         // check if the item's quantity will exceed the stock number
         alert("Stock limit reached!");
         return;
       }
-      state.cartItems[index].quantity++;
+      state.cartItemsStorage[index].quantity++;
     },
     // decrease the quantity of an item in the basket
     decreaseQuantity(state, item) {
-      const cartItem = state.cartItems.find((i) => i.name === item.name);
+      console.log(state.cartItemsStorage, "cartstorage");
+      const cartItem = state.cartItemsStorage.find((i) => i.name === item.name);
 
       if (cartItem && cartItem.quantity > 1) {
         // if the quantity is greater than 1, decrease the quantity
         cartItem.quantity--;
       } else {
         // if the quantity of the item is 1, remove it from the basket
-        const index = state.cartItems.findIndex((i) => i.name === item.name);
-        state.cartItems.splice(index, 1);
+        const index = state.cartItemsStorage.findIndex(
+          (i) => i.name === item.name
+        );
+        state.cartItemsStorage.splice(index, 1);
       }
     },
     removeFromCart(state, index) {
-      state.cartItems.splice(index, 1);
+      state.cartItemsStorage.splice(index, 1);
     },
     updateQuantity(state, { item, quantity }) {
-      const product = state.products.find((p) => p.name === item.name);
-      const cartItem = state.cartItems.find((i) => i.name === item.name);
+      const product = state.products.find((p) => p.id === item.id);
+      const cartItem = state.cartItemsStorage.find((i) => i.id === item.id);
 
       if (!product || !cartItem) {
         return; // product or item not found, do nothing
@@ -83,40 +108,88 @@ const store = createStore({
         cartItem.quantity = Number(quantity);
       } else if (quantity <= 0) {
         // if the quantity is 0 or negative, remove the item from the basket
-        const index = state.cartItems.findIndex((i) => i.name === item.name);
-        state.cartItems.splice(index, 1);
+        const index = state.cartItemsStorage.findIndex(
+          (i) => i.name === item.name
+        );
+        state.cartItemsStorage.splice(index, 1);
       }
     },
   },
   actions: {
-    async fetchProducts({ commit }) {
+    async fetchProducts({ commit, state }) {
       commit("setisLoading", true); //set loading state to true
-      try {
-        const response = await fetch(
-          "https://fe-test-case-eeca77cfvq-ue.a.run.app"
+      console.log("state.isFetched", state.isFetched);
+      if (state.isFetched) {
+        const productsStorage = JSON.parse(
+          localStorage.getItem("productsStorage")
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const products = await response.json();
-        if (!Array.isArray(products)) {
-          throw new Error("Invalid response data format");
-        }
-        this.products = products.map((product) => ({
-          ...product,
-          showInput: false,
-          quantity: 1,
-          id: nanoid(),
-        }));
-        commit("setProducts", this.products);
+        console.log("producstStoragesdc", productsStorage);
+
+        commit("setProducts", productsStorage);
         commit("setisLoading", false);
-      } catch (error) {
-        console.error(error);
-        // Handle the error by displaying a friendly message to the user
+      } else {
+        try {
+          const response = await fetch(
+            "https://fe-test-case-eeca77cfvq-ue.a.run.app"
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const products = await response.json();
+          if (!Array.isArray(products)) {
+            throw new Error("Invalid response data format");
+          }
+          this.products = products.map((product, index) => ({
+            ...product,
+            showInput: false,
+            quantity: 1,
+            id: index + 1,
+          }));
+
+          updateLocalStorage("productsStorage", this.products);
+          const productsStorage = JSON.parse(
+            localStorage.getItem("productsStorage")
+          );
+          console.log("producstStorage", productsStorage);
+
+          commit("setProducts", productsStorage);
+
+          // commit("setProducts", this.products);
+          commit("setIsFetched", true);
+          commit("setisLoading", false);
+        } catch (error) {
+          console.error(error);
+
+          // Handle the error by displaying a friendly message to the user
+        }
       }
     },
+
     addToCart({ commit }, item) {
+      // updateLocalStorage("productsStorage", this.products);
+      //   const productsStorage = JSON.parse(
+      //     localStorage.getItem("productsStorage")
+      //   );
+
+      //   commit("setProducts", productsStorage);
+      const productToAdd = this.state.products.find((p) => p.id === item.id);
+      const productIndex = this.state.products.findIndex(
+        (p) => p.id === item.id
+      );
+      productToAdd.showInput = true;
+      let updatedProducts = [...this.state.products];
+      updatedProducts[productIndex].showInput = true;
+      updateLocalStorage("productsStorage", updatedProducts);
+      const productsStorage = JSON.parse(
+        localStorage.getItem("productsStorage")
+      );
+
+      commit("setProducts", productsStorage);
       commit("addToCart", item);
+    },
+    initializeCartItemsFromLocalStorage({ commit }) {
+      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      commit("setCartItemsFromLocalStorage", cartItems);
     },
     increaseQuantity({ commit }, item) {
       commit("increaseQuantity", item);
@@ -133,6 +206,9 @@ const store = createStore({
   },
   getters: {
     itemCount: (state) => state.cartItems.length,
+    getData(state) {
+      return state.products;
+    },
   },
 });
 

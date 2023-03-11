@@ -49,7 +49,7 @@
 
                 <input
                   type="number"
-                  v-model="product.quantity"
+                  :value="inputQuantity(product)"
                   @change="updateQuantity(product, $event.target.value)"
                   class="d-block input-product"
                 />
@@ -71,7 +71,15 @@ import * as vuex from "vuex";
 
 export default {
   computed: {
-    ...vuex.mapState(["products", "cartItems", "isLoading"]),
+    ...vuex.mapState([
+      "products",
+      "cartItems",
+      "isLoading",
+      "cartItemsStorage",
+    ]),
+    products() {
+      return this.$store.getters.getData;
+    },
   },
   methods: {
     ...vuex.mapActions([
@@ -85,9 +93,21 @@ export default {
     updateQuantity(item, quantity) {
       this.$store.commit("updateQuantity", { item, quantity });
     },
+    inputQuantity(product) {
+      const productInputValue = this.cartItemsStorage.find(
+        (i) => i.name === product.name
+      );
+      console.log(" productInputValue.quantity", productInputValue.quantity);
+      return productInputValue.quantity;
+    },
   },
   created() {
-    this.fetchProducts();
+    // this.fetchProducts();
+    this.$store.dispatch("initializeCartItemsFromLocalStorage");
+  },
+  async mounted() {
+    await this.$store.dispatch("fetchProducts");
+    // Use the data in this.$store.getters.getData
   },
 };
 </script>
