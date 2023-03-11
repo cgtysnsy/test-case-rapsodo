@@ -97,8 +97,12 @@ export default {
       const productInputValue = this.cartItemsStorage.find(
         (i) => i.name === product.name
       );
-      console.log(" productInputValue.quantity", productInputValue.quantity);
-      return productInputValue.quantity;
+      console.log("productInputValue", productInputValue.quantity);
+      if (productInputValue.quantity > 0) {
+        return productInputValue.quantity;
+      } else {
+        return 0;
+      }
     },
   },
   created() {
