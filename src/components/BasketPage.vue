@@ -23,6 +23,7 @@
           </v-col>
 
           <v-col
+            class="basket-item"
             cols="12"
             v-else
             v-for="basketItem in cartItemsStorage"

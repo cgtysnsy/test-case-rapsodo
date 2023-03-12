@@ -6,6 +6,7 @@ import * as directives from "vuetify/directives";
 import { VTooltip } from "vuetify/lib/components/VTooltip";
 import { Directive } from "vue";
 
+import { VContainer, VIcon } from "vuetify/lib/components";
 import { fa } from "vuetify/iconsets/fa";
 import { aliases, mdi } from "vuetify/lib/iconsets/mdi";
 import "@mdi/font/css/materialdesignicons.css"; // Ensure you are using css-loader
@@ -23,6 +24,8 @@ export default createVuetify({
   components: {
     ...components,
     VTooltip,
+    VIcon,
+    VContainer,
   },
   directives: {
     ...directives,
