@@ -12,6 +12,12 @@ const store = createStore({
     cartItemsStorage: [],
     isLoading: false,
     isFetched: false,
+    images: [
+      "https://cdn.shopify.com/s/files/1/0597/7853/1477/files/mlm-home_360x.png?v=1655992541",
+      "https://cdn.shopify.com/s/files/1/0597/7853/1477/files/hitting-home_360x.png?v=1655993152",
+      "https://cdn.shopify.com/s/files/1/0597/7853/1477/files/pitching-home_360x.png?v=1655993240",
+      "https://cdn.shopify.com/s/files/1/0597/7853/1477/files/pro3-home_360x.png?v=1655993277",
+    ],
   },
   mutations: {
     setProducts(state, products) {
@@ -107,8 +113,17 @@ const store = createStore({
 
       updateLocalStorage("cartItems", state.cartItemsStorage);
     },
-    removeFromCart(state, index) {
+    removeFromCart(state, item) {
+      const index = state.cartItemsStorage.findIndex((i) => i.id === item.id);
+      console.log("index", index);
       state.cartItemsStorage.splice(index, 1);
+      const productIndex = state.products.findIndex((p) => p.id === item.id);
+      console.log("productIndex", productIndex);
+      let updatedProducts = [...this.state.products];
+      updatedProducts[productIndex].showInput = false;
+
+      updateLocalStorage("productsStorage", updatedProducts);
+      updateLocalStorage("cartItems", state.cartItemsStorage);
     },
     updateQuantity(state, { item, quantity }) {
       const product = state.products.find((p) => p.id === item.id);
@@ -127,7 +142,14 @@ const store = createStore({
           (i) => i.name === item.name
         );
         state.cartItemsStorage.splice(index, 1);
+        const productIndex = state.products.findIndex((p) => p.id === item.id);
+        console.log("productIndex", productIndex);
+        let updatedProducts = [...this.state.products];
+        updatedProducts[productIndex].showInput = false;
+
+        updateLocalStorage("productsStorage", updatedProducts);
       }
+      updateLocalStorage("cartItems", state.cartItemsStorage);
     },
   },
   actions: {
@@ -154,11 +176,14 @@ const store = createStore({
           if (!Array.isArray(products)) {
             throw new Error("Invalid response data format");
           }
+
           this.products = products.map((product, index) => ({
             ...product,
             showInput: false,
             quantity: 1,
             id: index + 1,
+            showTooltip: false,
+            imageUrl: this.state.images[Math.floor(Math.random() * 4)],
           }));
 
           updateLocalStorage("productsStorage", this.products);

@@ -18,10 +18,11 @@
       >
         <v-card class="mx-auto" max-width="240" :product="product">
           <v-img
-            class="align-end text-black product-image"
+            class="align-end text-black"
+            :style="{ backgroundColor: product.color }"
             width="240"
             height="240"
-            src="https://wiki.kerbalspaceprogram.com/images/c/ce/Image_needed.svg"
+            :src="product.imageUrl"
             alt="240x240"
             cover
           >
@@ -36,11 +37,17 @@
           </v-card-text>
 
           <v-card-actions v-if="!product.showInput">
-            <v-btn @click="addToCart(product)" class="btn-add"
-              >Add to Cart</v-btn
-            >
+            <v-btn
+              @click="addToCart(product)"
+              class="btn-add"
+              :id="`btn-add-${product.id}`"
+              >Add to Cart
+            </v-btn>
           </v-card-actions>
-          <v-card-actions v-else>
+          <v-card-actions
+            v-else
+            class="d-flex flex-column justif-center align-center w-100 mb-4"
+          >
             <v-row>
               <v-col cols="12" class="d-flex justify-center align-center">
                 <button @click="decreaseQuantity(product)" class="btn-product">
@@ -58,8 +65,13 @@
                   +
                 </button>
               </v-col>
-            </v-row></v-card-actions
-          >
+            </v-row>
+            <v-row>
+              <v-btn @click="removeFromCart(product)" class="btn-add">
+                Remove
+              </v-btn>
+            </v-row>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -70,12 +82,19 @@
 import * as vuex from "vuex";
 
 export default {
+  data() {
+    return {
+      showTooltip: false,
+    };
+  },
+
   computed: {
     ...vuex.mapState([
       "products",
       "cartItems",
       "isLoading",
       "cartItemsStorage",
+      "images",
     ]),
     products() {
       return this.$store.getters.getData;
@@ -97,13 +116,36 @@ export default {
       const productInputValue = this.cartItemsStorage.find(
         (i) => i.name === product.name
       );
-      console.log("productInputValue", productInputValue.quantity);
-      if (productInputValue.quantity > 0) {
+
+      if (productInputValue && productInputValue.quantity > 0) {
         return productInputValue.quantity;
       } else {
         return 0;
       }
     },
+    // removeFromCart(product) {
+    //   this.$state.commit("removeFromCart", product);
+    // },
+    // addToCart(product) {
+    //   this.$store.dispatch("addToCart", product);
+    // },
+    // toolTipHandler(product) {
+    //   product.showTooltip = !product.showTooltip;
+    //   // set showTooltip to true to display tooltip
+    //   // set a timeout to hide the tooltip after 2 seconds
+    //   setTimeout(() => {
+    //     this.product.showTooltip = !product.showTooltip;
+    //   }, 2000);
+    // },
+    // addToCart(product) {
+    //   // your addToCart method implementation
+    //   this.$store.dispatch("addToCart", { product });
+    //   this.showTooltip = true; // set showTooltip to true to display tooltip
+    //   // set a timeout to hide the tooltip after 2 seconds
+    //   setTimeout(() => {
+    //     this.showTooltip = false;
+    //   }, 2000);
+    // },
   },
   created() {
     // this.fetchProducts();
@@ -121,9 +163,11 @@ export default {
   width: 100%;
   color: rgba(168, 127, 52, 0.731);
   border: 0.5px solid black;
-  background-color: lightgray;
+  background-color: #c8102e;
   border-radius: 10px;
   text-align: center;
+  display: block;
+  color: white;
 }
 .btn-product {
   font-size: 1.5rem;
@@ -132,11 +176,8 @@ export default {
   cursor: pointer;
 }
 .input-product {
-  border: 1px solid lightgrey;
+  border: 1px solid #c8102e;
   text-align: center;
   width: 100px;
-}
-.product-image {
-  background-color: orangered;
 }
 </style>
