@@ -80,7 +80,6 @@ const store = createStore({
         return;
       }
       state.cartItemsStorage[index].quantity++;
-      console.log("state.cartItemStora", state.cartItemsStorage[0].quantity);
       updateLocalStorage("cartItems", state.cartItemsStorage);
     },
     // decrease the quantity of an item in the basket
@@ -104,7 +103,6 @@ const store = createStore({
         state.cartItemsStorage.splice(index, 1);
 
         const productIndex = state.products.findIndex((p) => p.id === item.id);
-        console.log("productIndex", productIndex);
         let updatedProducts = [...this.state.products];
         updatedProducts[productIndex].showInput = false;
 
@@ -115,10 +113,8 @@ const store = createStore({
     },
     removeFromCart(state, item) {
       const index = state.cartItemsStorage.findIndex((i) => i.id === item.id);
-      console.log("index", index);
       state.cartItemsStorage.splice(index, 1);
       const productIndex = state.products.findIndex((p) => p.id === item.id);
-      console.log("productIndex", productIndex);
       let updatedProducts = [...this.state.products];
       updatedProducts[productIndex].showInput = false;
 
@@ -143,7 +139,6 @@ const store = createStore({
         );
         state.cartItemsStorage.splice(index, 1);
         const productIndex = state.products.findIndex((p) => p.id === item.id);
-        console.log("productIndex", productIndex);
         let updatedProducts = [...this.state.products];
         updatedProducts[productIndex].showInput = false;
 
@@ -155,12 +150,10 @@ const store = createStore({
   actions: {
     async fetchProducts({ commit, state }) {
       commit("setisLoading", true); //set loading state to true
-      console.log("state.isFetched", state.isFetched);
       if (state.isFetched) {
         const productsStorage = JSON.parse(
           localStorage.getItem("productsStorage")
         );
-        console.log("producstStoragesdc", productsStorage);
 
         commit("setProducts", productsStorage);
         commit("setisLoading", false);
@@ -190,7 +183,6 @@ const store = createStore({
           const productsStorage = JSON.parse(
             localStorage.getItem("productsStorage")
           );
-          console.log("producstStorage", productsStorage);
 
           commit("setProducts", productsStorage);
 
