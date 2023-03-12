@@ -407,7 +407,6 @@ export default {
     //   this.$emit("add-to-cart", this.title);
     // },
     addToCart(product) {
-      console.log("add-to-cart", product);
       this.cart.push(product);
     },
   },
@@ -503,7 +502,6 @@ In this example, the **`ProductCard`** component is imported and used inside ano
          state.cartItems.push(item);
        },
        removeFromCart(state, index) {
-         console.log("index", index);
          state.cartItems.splice(index, 1);
        },
      },
