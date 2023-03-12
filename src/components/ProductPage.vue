@@ -66,11 +66,11 @@
                 </button>
               </v-col>
             </v-row>
-            <v-row>
+            <!-- <v-row>
               <v-btn @click="removeFromCart(product)" class="btn-add">
                 Remove
               </v-btn>
-            </v-row>
+            </v-row> -->
           </v-card-actions>
         </v-card>
       </v-col>
@@ -123,29 +123,14 @@ export default {
         return 0;
       }
     },
-    // removeFromCart(product) {
-    //   this.$state.commit("removeFromCart", product);
-    // },
-    // addToCart(product) {
-    //   this.$store.dispatch("addToCart", product);
-    // },
-    // toolTipHandler(product) {
-    //   product.showTooltip = !product.showTooltip;
-    //   // set showTooltip to true to display tooltip
-    //   // set a timeout to hide the tooltip after 2 seconds
-    //   setTimeout(() => {
-    //     this.product.showTooltip = !product.showTooltip;
-    //   }, 2000);
-    // },
-    // addToCart(product) {
-    //   // your addToCart method implementation
-    //   this.$store.dispatch("addToCart", { product });
-    //   this.showTooltip = true; // set showTooltip to true to display tooltip
-    //   // set a timeout to hide the tooltip after 2 seconds
-    //   setTimeout(() => {
-    //     this.showTooltip = false;
-    //   }, 2000);
-    // },
+
+    removeFromCart(product) {
+      this.$store.dispatch("removeFromCart", product);
+      this.$store.dispatch("open", "Product removed from basket");
+    },
+    addToCart(product) {
+      this.$store.dispatch("addToCart", product);
+    },
   },
   created() {
     // this.fetchProducts();

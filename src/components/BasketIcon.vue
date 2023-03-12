@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/basketpage" class="route-link">
+  <router-link to="/basketpage" class="route-link-icon">
     <v-icon
       icon="mdi-cart"
       class="cart-icon"
@@ -25,6 +25,9 @@ export default {
 <style scoped>
 .cart-icon {
   font-size: 40px;
+}
+.route-link-icon {
+  text-decoration: none;
 }
 .cart-icon:after {
   content: attr(value);

@@ -78,8 +78,7 @@ This will start a local server at **`http://localhost:8080`**, where you can vie
 To run tests, use the following command:
 
 ```
-npm run t
-```
+
 
 This will run the tests in watch mode, so that any changes to the code or tests will trigger the tests to be re-run.
 

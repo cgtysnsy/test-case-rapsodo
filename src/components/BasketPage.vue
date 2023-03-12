@@ -125,6 +125,10 @@ export default {
     updateQuantity(item, quantity) {
       this.$store.commit("updateQuantity", { item, quantity });
     },
+    removeFromCart(product) {
+      this.$store.dispatch("removeFromCart", product);
+      this.$store.dispatch("open", "Product removed from basket");
+    },
   },
 };
 </script>

@@ -4,6 +4,7 @@
       <router-link to="/basketpage" class="route-link-basketpage">
         <BasketIcon />
       </router-link>
+      <TipModal />
     </v-row>
     <v-row no-gutter>
       <router-link to="/" class="route-link-home"></router-link>
@@ -13,16 +14,14 @@
 </template>
 
 <script>
-// import ProductPage from "./components/ProductPage.vue";
 import BasketIcon from "./components/BasketIcon.vue";
-// import BasketPage from "./components/BasketPage.vue";
+import TipModal from "./components/TipModal.vue";
 
 export default {
   name: "App",
   components: {
-    // ProductPage,
+    TipModal,
     BasketIcon,
-    // BasketPage,
   },
 };
 </script>
