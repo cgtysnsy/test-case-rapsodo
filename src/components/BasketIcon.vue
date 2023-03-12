@@ -4,14 +4,13 @@
       icon="mdi-cart"
       class="cart-icon"
       :value="cartItemCount"
-      color="orange"
+      color="#c8102e"
     />
   </router-link>
 </template>
 
 <script>
 import * as vuex from "vuex";
-// import { VIcon } from "../plugins/vuetify.js";
 
 export default {
   computed: {
@@ -29,15 +28,15 @@ export default {
 }
 .cart-icon:after {
   content: attr(value);
-  font-size: 16px;
-  color: white;
+  font-size: 22px;
+  color: #c8102e;
   border-radius: 50%;
   padding: 8px;
   position: relative;
-  left: -18px;
-  top: -18px;
+  left: -15px;
+  top: -28px;
   opacity: 0.9;
-  background-color: grey;
+  background-color: rgba(0, 0, 0, 0);
   width: 28px;
   height: 28px;
   text-align: center;

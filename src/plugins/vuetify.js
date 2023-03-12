@@ -3,6 +3,8 @@ import "vuetify/dist/vuetify.min.css";
 import "vuetify/styles";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import { VTooltip } from "vuetify/lib/components/VTooltip";
+import { Directive } from "vue";
 
 import { fa } from "vuetify/iconsets/fa";
 import { aliases, mdi } from "vuetify/lib/iconsets/mdi";
@@ -18,6 +20,12 @@ export default createVuetify({
       fa,
     },
   },
-  components,
-  directives,
+  components: {
+    ...components,
+    VTooltip,
+  },
+  directives: {
+    ...directives,
+    tooltip: Directive,
+  },
 });
