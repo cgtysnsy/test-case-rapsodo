@@ -1,43 +1,34 @@
-# **Project Title**
+# Project Title
 
 FE Test Case Rapsodo
 
-## **Description**
+## Description
 
-This project is a web application built with Vue.js 3 and JavaScript.
+This is a web application built with Vue.js 3 and JavaScript. It is an SPA that uses Vuex State Management, Vuetify, Vue Router, and Test codes. The application uses a Dummy data API link to display items that can be added to the basket.
 
-**Requirements**:
+The application has the following important points:
 
-- VueJS SPA
-- Vuex State Management
-- Vuetify
-- Vue Router
+- Reusable components
+- Vuetify component usability
 - Test codes
+- Git commit history
 
----
+### **Features**
 
-**Dummy data** [API Link](https://fe-test-case-eeca77cfvq-ue.a.run.app/)
+The following features are available in the application:
 
----
-
-**Important points;**
-
-- • Reasuble components
-- • Vuetify component usability
-- • Test codes
-- • Git commit history
-
-**In listing page;**
+### Listing page
 
 - All items will be listed
-- Items can add to basket
+- Items can be added to basket
 - Items` amount can increase and decrease
-- After add or remove, you can show tooltip. ‘Item has been added’ or ‘Item
-  has been removed’
-- Basket icon can work like router link for Basket page
-  In basket page;
+- After adding or removing items, a tooltip can be shown: ‘Item has been added’ or ‘Item has been removed’
+- Basket icon can work like a router link for Basket page
+
+### Basket page
+
 - Items in the basket will be listed
-- Item amount can increase, decrease or remove from basket
+- Item amount can increase, decrease or be removed from basket
 
 ## **Getting Started**
 
@@ -54,16 +45,19 @@ To get started, clone the repository from GitHub:
 
 ```
 git clone https://github.com/cgtysnsy/test-case-rapsodo.git
+
 ```
 
 Then, navigate into the project directory and install the required dependencies:
 
 ```
+
 cd test-case-rapsodo
 npm install
+
 ```
 
-### **Usage**
+**Usage**
 
 To start the development server, run the following command:
 
@@ -71,14 +65,15 @@ To start the development server, run the following command:
 npm run serve
 ```
 
-This will start a local server at **`http://localhost:8080`**, where you can view and interact with the application.
+This will start a local server at **[http://localhost:8080](http://localhost:8080/)**, where you can view and interact with the application.
 
 ### **Testing**
 
 To run tests, use the following command:
 
 ```
-
+npm run test:unit
+```
 
 This will run the tests in watch mode, so that any changes to the code or tests will trigger the tests to be re-run.
 
@@ -90,9 +85,9 @@ To build the project for production, run:
 npm run build
 ```
 
-This will generate a production-ready build of the application in the dist directory.
+This will generate the production-ready files in the **`dist`** directory.
 
-## **Acknowledgments**
+### Acknowledgments
 
 - **[Rapsodo](https://rapsodo.com/)** - for providing the data used in this project.
 - **[Vue.js](https://vuejs.org/)** - for providing the framework used to build this application.
