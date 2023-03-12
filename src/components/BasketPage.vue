@@ -1,12 +1,16 @@
 <template>
-  <v-container>
+  <v-container class="pa-0">
     <v-row no-gutters>
       <v-col cols="12" md="9">
-        <v-row no-gutters justify="space-between" class="my-6">
+        <v-row
+          no-gutters
+          justify="space-between"
+          class="my-6 bg-grey-lighten-3"
+        >
           <v-col cols="5">
             <v-card-title>Products</v-card-title>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="4" class="pt-2">
             <router-link to="/" class="back-router">
               &lt; Continue Shopping
             </router-link>
@@ -15,7 +19,7 @@
 
         <v-row no-gutters class="m-4">
           <v-col cols="12" v-if="cart.length === 0">
-            <p>Your basket is empty.</p>
+            <h2>Your basket is empty.</h2>
           </v-col>
 
           <v-col
@@ -29,13 +33,17 @@
                 <v-img
                   width="240"
                   height="240"
-                  src="https://wiki.kerbalspaceprogram.com/images/c/ce/Image_needed.svg"
+                  :src="basketItem.imageUrl"
                   alt="240x240"
                   cover
                   class="mx-auto product-image"
                 />
               </v-col>
-              <v-col cols="12" md="5" class="mt-10 my-auto">
+              <v-col
+                cols="12"
+                md="3"
+                class="mt-10 my-auto pl-2 $vuetify.breakpoint.xl ? 'text-left' : 'text-center'"
+              >
                 <h3>{{ basketItem.name }}</h3>
                 <p>Size: {{ basketItem.size }}</p>
                 <p>Color: {{ basketItem.color }}</p>
@@ -44,7 +52,7 @@
               <v-col cols="12" md="3" class="ma-auto">
                 <v-btn
                   @click="decreaseQuantity(basketItem)"
-                  class="d-block w-100 my-4 pl-2"
+                  class="d-block w-100 my-4 pl-2 basket-btn"
                   >-</v-btn
                 >
 
@@ -57,20 +65,25 @@
 
                 <v-btn
                   @click="increaseQuantity(basketItem)"
-                  class="d-block w-100 my-4 pl-2"
+                  class="d-block w-100 my-4 pl-2 basket-btn"
                   >+</v-btn
                 >
+              </v-col>
+              <v-col md="2" class="ma-auto text-center">
+                <v-icon color="red" @click="removeFromCart(basketItem)">
+                  mdi-delete
+                </v-icon>
               </v-col>
             </v-row>
             <v-divider class="my-4" />
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="12" md="3">
-        <v-row no-gutters justify="center">
+      <v-col cols="12" md="3" class="mt-6">
+        <v-row no-gutters justify="center" class="bg-grey-lighten-3">
           <v-card-title>Subtotal</v-card-title>
         </v-row>
-        <v-row no-gutters justify="center">
+        <v-row no-gutters justify="center" class="mt-8">
           <h2>${{ total }}</h2>
         </v-row>
       </v-col>
@@ -128,7 +141,9 @@ export default {
 .price {
   color: green;
 }
-.product-image {
-  background-color: orangered;
+.basket-btn {
+  color: white;
+  background-color: #c8102e;
+  opacity: 0.8;
 }
 </style>
