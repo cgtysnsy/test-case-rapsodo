@@ -4,7 +4,6 @@ import "vuetify/styles";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { VTooltip } from "vuetify/lib/components/VTooltip";
-import { Directive } from "vue";
 
 import { VContainer, VIcon } from "vuetify/lib/components";
 import { fa } from "vuetify/iconsets/fa";
@@ -27,8 +26,5 @@ export default createVuetify({
     VIcon,
     VContainer,
   },
-  directives: {
-    ...directives,
-    tooltip: Directive,
-  },
+  directives,
 });
