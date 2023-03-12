@@ -6,6 +6,7 @@ const updateLocalStorage = (key, value) => {
 };
 
 const store = createStore({
+  namespaced: true,
   state: {
     products: [],
     cartItems: [],
@@ -18,8 +19,20 @@ const store = createStore({
       "https://cdn.shopify.com/s/files/1/0597/7853/1477/files/pitching-home_360x.png?v=1655993240",
       "https://cdn.shopify.com/s/files/1/0597/7853/1477/files/pro3-home_360x.png?v=1655993277",
     ],
+    isOpen: false,
+    message: "",
   },
   mutations: {
+    //manageing modal
+    openModal(state) {
+      state.isOpen = true;
+      state.message;
+    },
+    closeModal(state) {
+      state.isOpen = false;
+      state.message = "";
+    },
+    //----------
     setProducts(state, products) {
       state.products = products;
     },
@@ -47,7 +60,8 @@ const store = createStore({
         // if the item is already in the basket, increment the quantity
         if (state.cartItemsStorage[index].quantity + 1 > item.stock) {
           // check if the item's quantity will exceed the stock number
-          alert("Stock limit reached!");
+          state.isOpen = true;
+          state.message = "Stock limit reached!";
           return;
         }
         state.cartItemsStorage[index].quantity++;
@@ -55,14 +69,19 @@ const store = createStore({
         // if the item is not in the basket, add it with a quantity of 1
         if (item.quantity > item.stock) {
           // check if the item's quantity is greater than the stock number
-          alert("Stock limit reached!");
+
+          state.isOpen = true;
+          state.message = "Out Of Stock!";
           return;
         }
+
         state.cartItemsStorage.push({
           ...item,
           quantity: item.quantity,
         });
       }
+      state.isOpen = true;
+      state.message = `${item.name} added to the cart.`;
 
       // item.showInput = true;
 
@@ -114,6 +133,8 @@ const store = createStore({
     removeFromCart(state, item) {
       const index = state.cartItemsStorage.findIndex((i) => i.id === item.id);
       state.cartItemsStorage.splice(index, 1);
+      state.isOpen = true;
+      state.message = `${item.name} removed from the cart.`;
       const productIndex = state.products.findIndex((p) => p.id === item.id);
       let updatedProducts = [...this.state.products];
       updatedProducts[productIndex].showInput = false;
@@ -213,8 +234,11 @@ const store = createStore({
 
         commit("setProducts", productsStorage);
       }
-
       commit("addToCart", item);
+      commit("openModal");
+      setTimeout(() => {
+        commit("closeModal");
+      }, 2000);
     },
     initializeCartItemsFromLocalStorage({ commit }) {
       const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -228,6 +252,9 @@ const store = createStore({
     },
     removeFromCart({ commit }, item) {
       commit("removeFromCart", item);
+      setTimeout(() => {
+        commit("closeModal");
+      }, 2000);
     },
     updateQuantity({ commit }, { item, quantity }) {
       commit("updateQuantity", { item, quantity });
