@@ -1,12 +1,12 @@
 <template>
   <v-container class="app">
     <v-row no-gutters justify="end" class="my-10">
-      <router-link to="/basketpage" class="route-link">
+      <router-link to="/basketpage" class="route-link-basketpage">
         <BasketIcon />
       </router-link>
     </v-row>
     <v-row no-gutter>
-      <router-link to="/" class="route-link"></router-link>
+      <router-link to="/" class="route-link-home"></router-link>
       <router-view></router-view>
     </v-row>
   </v-container>
@@ -39,7 +39,8 @@ body {
   max-width: 1260px;
   min-width: 240px;
 }
-.route-link {
+.route-link-basketpage,
+.route-link-home {
   text-decoration: none;
 }
 </style>

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 // import BasketIcon from "./components/BasketIcon";
-import BasketPage from "./components/BasketPage.vue";
-import ProductPage from "./components/ProductPage.vue";
+import BasketPage from "../src/components/BasketPage";
+import ProductPage from "../src/components/ProductPage";
 const routes = [
   {
     path: "/",

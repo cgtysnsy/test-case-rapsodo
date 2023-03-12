@@ -4,12 +4,14 @@ import App from "@/App.vue";
 describe("App.vue", () => {
   it("renders a router-link to the basket page", () => {
     const wrapper = shallowMount(App);
-    expect(wrapper.find(".route-link").attributes("to")).toBe("/basketpage");
+    expect(wrapper.find(".route-link-basketpage").attributes("to")).toBe(
+      "/basketpage"
+    );
   });
 
   it("renders a router-link to the home page", () => {
     const wrapper = shallowMount(App);
-    expect(wrapper.find(".route-link").attributes("to")).toBe("/");
+    expect(wrapper.find(".route-link-home").attributes("to")).toBe("/");
   });
 
   it("renders a BasketIcon component", () => {
