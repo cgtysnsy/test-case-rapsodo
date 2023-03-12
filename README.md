@@ -13,6 +13,9 @@ The application has the following important points:
 - Test codes
 - Git commit history
 
+### Live link
+https://main--celebrated-sopapillas-0c3145.netlify.app/
+
 ### **Features**
 
 The following features are available in the application:
