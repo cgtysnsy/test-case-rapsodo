@@ -1,8 +1,8 @@
-# **Project Title**
+# Project Title
 
 FE Test Case Rapsodo
 
-## **Description**
+## Description
 
 This is a web application built with Vue.js 3 and JavaScript. It is an SPA that uses Vuex State Management, Vuetify, Vue Router, and Test codes. The application uses a Dummy data API link to display items that can be added to the basket.
 
@@ -13,10 +13,20 @@ The application has the following important points:
 - Test codes
 - Git commit history
 
+<<<<<<< HEAD
 ### **Features**
 
 The following features are available in the application:
 
+=======
+### Live link
+https://main--celebrated-sopapillas-0c3145.netlify.app/
+
+### **Features**
+
+The following features are available in the application:
+
+>>>>>>> 884388fb0c5f821273d48bae9f5521d9a3ed8655
 ### Listing page
 
 - All items will be listed
