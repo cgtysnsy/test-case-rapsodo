@@ -6,8 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "t": "cross-env NODE_OPTIONS=--experimental-vm-modules vue-cli-service test:unit --coverage --watchAll",
-    "test:unit": "vitest --environment jsdom --root src"
+    "test:unit": "cross-env NODE_OPTIONS=--experimental-vm-modules vue-cli-service test:unit --coverage --watchAll"
   },
   "dependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.21.2",
