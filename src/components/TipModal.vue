@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isOpen" persistent class="model-dialog">
+  <v-dialog v-model="isOpen" class="model-dialog">
     <v-card>
       <v-card-title class="model-message">
         <p class="title-p">{{ message }}</p>
@@ -34,11 +34,15 @@ export default {
 </script>
 <style scope>
 .model-dialog {
-  width: 100%;
+  /* width: 100%;
   text-align: center;
   height: 120px;
   margin: 0 auto;
   overflow-y: hidden;
+   */
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 .model-message {
   text-align: center;
