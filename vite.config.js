@@ -5,6 +5,7 @@ import VueLayouts from "vite-plugin-vue-layouts";
 import sass from "sass";
 
 export default defineConfig({
+  base: "/test-case-rapsodo/",
   plugins: [
     vue(),
     cssModules(),
