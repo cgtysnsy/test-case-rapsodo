@@ -41,24 +41,10 @@ export default {
 };
 </script>
 <style scope>
-/* .model-dialog {
-  /* width: 100%;
-  text-align: center;
-  height: 120px;
-  margin: 0 auto;
-  overflow-y: hidden;
-
-} */
-/* .model-message {
-  text-align: center;
-  height: auto;
-  width: 100%;
-  height: 190px;
-/* } */
 .title-p {
   font-size: 18px;
 }
-*/ .custom-snackbar {
+.custom-snackbar {
   top: 80px !important;
   right: 16px !important;
   bottom: auto !important;
