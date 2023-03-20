@@ -13,20 +13,18 @@ The application has the following important points:
 - Test codes
 - Git commit history
 
-<<<<<<< HEAD
 ### **Features**
 
 The following features are available in the application:
 
-=======
 ### Live link
-https://main--celebrated-sopapillas-0c3145.netlify.app/
+
+https://rapsodo-test-case.netlify.app
 
 ### **Features**
 
 The following features are available in the application:
 
->>>>>>> 884388fb0c5f821273d48bae9f5521d9a3ed8655
 ### Listing page
 
 - All items will be listed
