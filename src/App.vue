@@ -11,6 +11,14 @@
       <router-view></router-view>
     </v-row>
   </v-container>
+  <div class="footer">
+    <a href="https://github.com/cgtysnsy/test-case-rapsodo.git" target="_blank">
+      <v-icon
+        icon="mdi-github"
+        class="footer"
+        href="https://github.com/cgtysnsy/test-case-rapsodo.git"
+    /></a>
+  </div>
 </template>
 
 <script>
@@ -41,5 +49,15 @@ body {
 .route-link-basketpage,
 .route-link-home {
   text-decoration: none;
+}
+.footer {
+  text-align: center;
+  margin: 2rem;
+}
+.footer a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 28px;
 }
 </style>
